@@ -14,8 +14,8 @@ final class SocketServer {
 
     typealias Client = ObjectIdentifier
 
-    /// Answers a message: nil means ok, a string is the error sent back to the client.
-    var onMessage: ((Client, Message) -> String?)?
+    /// Answers a message with the reply object sent back to the client.
+    var onMessage: ((Client, Message) -> [String: Any])?
     var onDisconnect: ((Client) -> Void)?
     var onFailure: ((String) -> Void)?
 
@@ -101,8 +101,7 @@ final class SocketServer {
         guard let message = try? JSONDecoder().decode(Message.self, from: line) else {
             return send(["ok": false, "error": "bad request"], to: client)
         }
-        let error = onMessage?(client, message)
-        send(error.map { ["ok": false, "error": $0] } ?? ["ok": true], to: client)
+        send(onMessage?(client, message) ?? ["ok": false, "error": "not ready"], to: client)
     }
 
     private func drop(_ client: Client) {

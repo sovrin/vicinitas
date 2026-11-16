@@ -38,11 +38,12 @@ function request(message) {
   })
 }
 
-/** One-shot command (add, rm). Throws AppNotRunning, or an Error carrying the app's message. */
+/** One-shot command (add, rm, stop, list); resolves with the reply. Throws AppNotRunning, or an Error carrying the app's message. */
 export async function command(message) {
   const { reply, sock } = await request(message)
   sock.end()
   if (!reply.ok) throw new Error(reply.error)
+  return reply
 }
 
 /**

@@ -33,7 +33,11 @@ final class Registry: ObservableObject {
             self.error = error.localizedDescription
         }
 
-        server.onMessage = { [weak self] client, message in self?.handle(message, from: client) }
+        server.onMessage = { [weak self] client, message in
+            guard let self else { return [:] }
+            if message.op == "list" { return ["ok": true, "routes": entries.map(Self.json)] }
+            return handle(message, from: client).map { ["ok": false, "error": $0] } ?? ["ok": true]
+        }
         server.onDisconnect = { [weak self] client in
             guard let self, live.removeValue(forKey: client) != nil else { return }
             publish()
@@ -94,11 +98,22 @@ final class Registry: ObservableObject {
             guard stored != nil else { return "no route named \(name)" }
             fixed.removeAll { $0.name == name }
             save()
+        case "stop":
+            guard let target = live.first(where: { $0.value.name == name })?.key else {
+                return stored != nil ? "\(host) is a fixed route, run: vici rm \(name)" : "nothing is running as \(host)"
+            }
+            server.send(["op": "stop"], to: target)
         default:
             return "unknown op \(message.op)"
         }
         publish()
         return nil
+    }
+
+    private static func json(_ entry: Entry) -> [String: Any] {
+        var json: [String: Any] = ["name": entry.name, "host": entry.host, "port": entry.port, "fixed": entry.isFixed]
+        json["cwd"] = entry.cwd
+        return json
     }
 
     private func save() {

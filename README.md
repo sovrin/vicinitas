@@ -13,6 +13,9 @@ vici nuxt dev                 # → http://<package name>.localhost
 vici --name shop nuxt dev     # → http://shop.localhost
 vici add api 8080             # fixed route to a server started some other way
 vici rm api                   # remove a fixed route
+vici ls                       # list routes
+vici open [name]              # open in the browser (default: this project)
+vici stop [name]              # stop a running dev server (default: this project)
 ```
 
 - **Names.** By default the name comes from `package.json` (scope dropped) or the folder name. In a linked git worktree the worktree's folder is prepended, so `archerfish.sonotas.localhost` and `sonotas.localhost` can run side by side.
