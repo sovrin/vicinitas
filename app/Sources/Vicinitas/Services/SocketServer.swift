@@ -1,7 +1,7 @@
 import Foundation
 import Network
 
-/// Unix-socket server for the `vicinitas` CLI: newline-delimited JSON, one connection per client.
+/// Unix-socket server for the `vici` CLI: newline-delimited JSON, one connection per client.
 /// A registered dev server keeps its connection open; the kernel closes it when the process ends, however it ends.
 @MainActor
 final class SocketServer {

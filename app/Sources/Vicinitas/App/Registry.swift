@@ -56,7 +56,7 @@ final class Registry: ObservableObject {
         }
     }
 
-    /// Running app: ask its `vicinitas` wrapper to Ctrl-C the dev server; the route goes when it disconnects.
+    /// Running app: ask its `vici` wrapper to Ctrl-C the dev server; the route goes when it disconnects.
     /// Fixed route: delete it.
     func stop(_ entry: Entry) {
         if entry.isFixed {
