@@ -1,0 +1,15 @@
+# Build output
+.build/
+DerivedData/
+*.app
+
+# Xcode user state
+xcuserdata/
+*.xcuserstate
+
+# Node
+node_modules/
+
+# Editors and macOS
+.idea/
+.DS_Store

@@ -1,0 +1,8 @@
+{
+  "name": "vicinitas",
+  "version": "0.1.0",
+  "type": "module",
+  "bin": {
+    "vici": "vicinitas.mjs"
+  }
+}
