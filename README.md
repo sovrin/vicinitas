@@ -40,7 +40,7 @@ Add it to a project as a script:
 
 ## Requirements
 
-- macOS 14 or later (tested on macOS 26)
+- macOS 26 or later
 - Caddy: `brew install caddy`
 - Node.js for the CLI
 - Xcode 27 or later to build the app

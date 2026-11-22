@@ -1,6 +1,6 @@
 #!/bin/sh
 # Builds Vicinitas.app (menu bar only, no Dock icon) next to this script, via the Xcode project.
-# Not SwiftPM: a package build stamps the binary with SDK = deployment target (14.0),
+# Not SwiftPM: a package build stamps the binary with SDK = deployment target,
 # which makes macOS 26+ draw the old look (square menu bar panel).
 set -e
 cd "$(dirname "$0")"
